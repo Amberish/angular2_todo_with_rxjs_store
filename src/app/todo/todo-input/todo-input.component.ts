@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Todo } from '../contracts/todo.model';
-import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'todo-input',
@@ -9,9 +8,10 @@ import { TodoService } from '../todo.service';
 })
 export class TodoInputComponent implements OnInit {
   todo: Todo;
-  todos: Todo[] = [];
 
-  constructor(private service: TodoService) { 
+  @Output() create: EventEmitter<any> = new EventEmitter();
+
+  constructor() { 
     this.setDefaultTodo();
   }
 
@@ -19,7 +19,7 @@ export class TodoInputComponent implements OnInit {
   }
 
   addTodo() {
-    this.service.add(this.todo, this.todos);
+    this.create.emit(this.todo);
     //empty input
     this.setDefaultTodo();
   }

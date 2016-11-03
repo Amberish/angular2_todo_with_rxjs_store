@@ -2,6 +2,7 @@ import { ActionReducer, Action } from '@ngrx/store';
 import { Todo } from './contracts/todo.model';
 
 export const ADD_TODO = 'ADD_TODO';
+export const EDIT_TODO = 'EDIT_TODO';
 
 //export const DECREMENT = 'DECREMENT';
 //export const RESET = 'RESET';
@@ -22,8 +23,12 @@ export const todo: ActionReducer<Todo> = (state: Todo = TODO_INITIAL_STATE, acti
         case ADD_TODO:
             return Object.assign({}, state, action.payload);
 
-        // case DECREMENT:
-        //     return state - 1;
+        case EDIT_TODO:
+            return Object.assign({}, state, {
+                id: action.payload.id,
+                text: action.payload.text,
+                completed: false
+            });
 
         // case RESET:
         //     return 0;
@@ -33,7 +38,7 @@ export const todo: ActionReducer<Todo> = (state: Todo = TODO_INITIAL_STATE, acti
     }
 }
 
-export const todos: ActionReducer<Array<Object>> = (state: Array<Object> = [], action: Action) => {
+export const todos: ActionReducer<Array<Todo>> = (state: Array<Todo> = [], action: Action) => {
     switch (action.type) {
         case ADD_TODO:
             return [
@@ -41,8 +46,14 @@ export const todos: ActionReducer<Array<Object>> = (state: Array<Object> = [], a
                 todo(undefined, action)
             ];
 
-        // case DECREMENT:
-        //     return state - 1;
+        case EDIT_TODO:
+            return state.map(item => {
+                
+                if(item.id == action.payload.id)
+                    return todo(item, action);
+
+                return item;
+            })
 
         // case RESET:
         //     return 0;

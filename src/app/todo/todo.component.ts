@@ -4,24 +4,26 @@ import { Todo } from './contracts/todo.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
+import { TodoService } from './todo.service';
+
 @Component({
   selector: 'todo',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
-  source: Observable<any>
-  todos: Todo[];
-  //subscription: Observable<any>;
-  constructor(private _store: Store<any>) { 
-    this.source = this._store.select('todos');
-  }
+
+  constructor(private service: TodoService) { }
 
   ngOnInit() {
   }
 
-  getTodos(todos: Todo[]): void {
-    this.source.subscribe(todos => this.todos = todos);
+  addTodo(todo: Todo){
+    this.service.add(todo);
+  }
+
+  editTodo(todo: Object) {
+    this.service.edit(todo);
   }
 
 }

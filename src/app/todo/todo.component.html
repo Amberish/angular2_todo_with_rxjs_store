@@ -1,7 +1,9 @@
 <div class="row" >
     <div class="col-md-4">
-        <todo-input ></todo-input>
-        <todo-list ></todo-list>
+        <todo-input 
+            (create)="addTodo($event)"></todo-input>
+        <todo-list 
+            (edit)="editTodo($event)"></todo-list>
         <todo-filter></todo-filter>
     </div>
 </div>

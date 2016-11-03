@@ -11,6 +11,7 @@ import { TodoFilterComponent } from './todo/todo-filter/todo-filter.component';
 import { TodoService } from './todo/todo.service';
 
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { todos } from './todo/reducers';
 import { filter } from './todo/reducers';
 
@@ -31,7 +32,8 @@ const reducers: Object = {
     BrowserModule,
     FormsModule,
     HttpModule,
-    StoreModule.provideStore(reducers)
+    StoreModule.provideStore(reducers),
+    StoreDevtoolsModule.instrumentOnlyWithExtension()
   ],
   providers: [
     TodoService
