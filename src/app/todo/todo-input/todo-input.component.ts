@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Todo } from '../contracts/todo.model';
 
 @Component({
@@ -8,8 +8,11 @@ import { Todo } from '../contracts/todo.model';
 })
 export class TodoInputComponent implements OnInit {
   todo: Todo;
+  isEditMode: boolean = false;
 
+  @Input() editTodo: Todo;
   @Output() create: EventEmitter<any> = new EventEmitter();
+  @Output() update: EventEmitter<any> = new EventEmitter();
 
   constructor() { 
     this.setDefaultTodo();
@@ -18,10 +21,29 @@ export class TodoInputComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Read for editTodo Changes
+   */
+  ngOnChanges(changes){
+    if(!changes.editTodo)
+      return;
+
+    if(this.editTodo != undefined){
+      this.todo = this.editTodo;
+      this.isEditMode = true;
+    }      
+  }
+
   addTodo() {
     this.create.emit(this.todo);
     //empty input
     this.setDefaultTodo();
+  }
+
+  updateTodo() {
+    this.update.emit(this.todo);
+    this.setDefaultTodo();
+    this.isEditMode = false;
   }
 
   setDefaultTodo(): void{

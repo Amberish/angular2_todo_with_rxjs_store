@@ -7,5 +7,5 @@
     [(ngModel)]="todo.text"/>
   <button 
     class="btn btn-primary"
-    (click)="addTodo()">Add Todo</button>
+    (click)="(isEditMode)?updateTodo():addTodo()">{{(isEditMode)?"Update Todo":"Add Todo"}}</button>
 </div>

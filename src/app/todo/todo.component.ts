@@ -12,17 +12,22 @@ import { TodoService } from './todo.service';
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
-
+  todo_edit: Todo;
   constructor(private service: TodoService) { }
 
   ngOnInit() {
+    
   }
 
-  addTodo(todo: Todo){
+  addTodo(todo: Todo){    
     this.service.add(todo);
   }
 
-  editTodo(todo: Object) {
+  editTodo(todo: Todo) {
+    this.todo_edit = todo;
+  }
+
+  updateTodo(todo: Todo) {
     this.service.edit(todo);
   }
 

@@ -12,8 +12,10 @@ import { EDIT_TODO } from '../reducers';
 })
 export class TodoListComponent implements OnInit {
 
-  @Output() edit: EventEmitter<any> = new EventEmitter();
   todos: Observable<any>;
+
+  @Output() edit: EventEmitter<any> = new EventEmitter();
+  
   constructor(private _store: Store<any>) { 
     this.todos = _store.select('todos');
   }
@@ -21,10 +23,7 @@ export class TodoListComponent implements OnInit {
   ngOnInit() {}
 
   editTodo(item: Todo){
-    this.edit.emit({
-      id: item.id,
-      text: "Changed"
-    });
+    this.edit.emit(item);
   }
 
 }

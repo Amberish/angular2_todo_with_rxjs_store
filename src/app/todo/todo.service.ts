@@ -15,6 +15,9 @@ export class TodoService {
           .subscribe(todos => this.todos = todos);
   }
 
+  /**
+   * Method to ompose todo object
+   */
   make(todoText: string, todos: Todo[]): Todo{
     return {
       id: todos.length + 1,
@@ -23,6 +26,9 @@ export class TodoService {
     }
   }
 
+  /**
+   * Method to add todo to the store.
+   */
   add(todo: any): void{
     if(typeof todo == "string")
       todo = this.make(todo, this.todos);
@@ -34,6 +40,11 @@ export class TodoService {
     //todos.push(todo);
   }
 
+  /**
+   * Method to edit todo,
+   * todo is of type {id: integer, text: string}
+   * id is the id of todo to be edited, and text is the new todo.
+   */
   edit(todo: any): void{
     this._store.dispatch({type: EDIT_TODO, payload: todo})
   }
