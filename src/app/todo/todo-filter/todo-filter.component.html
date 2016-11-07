@@ -1,5 +1,5 @@
 <div>
-  <button class="btn btn-info">Show All</button>
-  <button class="btn btn-default">Completed</button>
-  <button class="btn btn-default">Pending</button>
+  <button class="btn btn-info" (click)="filterSelected('all')">Show All</button>
+  <button class="btn btn-default" (click)="filterSelected('completed')">Completed</button>
+  <button class="btn btn-default" (click)="filterSelected('pending')">Pending</button>
 </div>
